@@ -1,16 +1,3 @@
-import ctypes
-
-class Node:
-    """
-    Implementation of a node
-    """
-    def __init__(self, val=None):
-        self.val = val
-        self.next_node = None
-        
-    def set_next_node(self, node):
-        self.next_node = node
-
 class Singly_linked_list:
     """
     Implementation of a singly linked list
@@ -19,14 +6,19 @@ class Singly_linked_list:
         self.head_node = head_node
         
     def list_traversed(self):
+        respuesta = ''
         node = self.head_node
-        print(node.val, end = '')
+        if node:
+            respuesta += str(node.val)
+            #print(node.val, end = '')
         while node:
             if node != self.head_node:
-                print(' -> {}'.format(node.val), end = '')
+                respuesta += ' -> '
+                respuesta += str(node.val)
+                #print(' -> {}'.format(node.val), end = '')
             node = node.next_node
             
-        print('\n')
+        return respuesta
             
     def insert_head(self, new_node):
         # insert to the head
@@ -59,27 +51,66 @@ class Singly_linked_list:
         else:
             self.insert_tail(new_node)
             
+    def delete_head(self):
+        if self.head_node.next_node:
+            self.head_node = self.head_node.next_node
+        else:
+            self.head_node = None
+    
+    def delete_tail(self):
+        if self.head_node.next_node:
+            prev = self.head_node
+            node = prev.next_node
+        
+            while node.next_node:
+                prev = node
+                node = node.next_node
+
+        
+            prev.next_node = None
+        else:
+            self.head_node = None
+            
+    
     def delete_node(self, value):
         prev = self.head_node
         node = prev.next_node
         
-        if prev.val == value:
-            self.head_node = self.head_node.next_node
-            prev.next_node = None
+        if node:
         
-        else:
-        
-            while node.val != value:
-                    prev = node
-                    node = node.next_node
-                    
-                    if node == None:
-                        break
-                
-            if node:
-                prev.set_next_node(node.next_node)
-                node.next_node = None
-                
-            else:
-                print("Valor no se encuentra")
+            if prev.val == value:
+                self.head_node = self.head_node.next_node
+                prev.next_node = None
             
+            else:
+            
+                while node.val != value:
+                        prev = node
+                        node = node.next_node
+                        
+                        if node == None:
+                            break
+                    
+                if node:
+                    prev.set_next_node(node.next_node)
+                    node.next_node = None
+                    
+                else:
+                    print("Valor no se encuentra")
+        else:
+            self.head_node = None
+            
+                
+    def reverse_list(lista):
+            prev = None
+            # We start with the head node
+            node = lista.head_node
+
+            
+            while node:
+                next_node = node.next_node
+                node.next_node = prev
+                prev = node
+                node = next_node
+
+            lista.head_node = prev
