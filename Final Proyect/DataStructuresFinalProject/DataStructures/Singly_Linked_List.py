@@ -19,14 +19,18 @@ class Singly_linked_list:
         self.head_node = head_node
         
     def list_traversed(self):
+        respuesta = ''
         node = self.head_node
-        print(node.val, end = '')
+        respuesta.append(str(node.val))
+        #print(node.val, end = '')
         while node:
             if node != self.head_node:
-                print(' -> {}'.format(node.val), end = '')
+                respuesta.append('->')
+                respuesta.append(str(node.val))
+                #print(' -> {}'.format(node.val), end = '')
             node = node.next_node
             
-        print('\n')
+        return respuesta
             
     def insert_head(self, new_node):
         # insert to the head
@@ -82,4 +86,14 @@ class Singly_linked_list:
                 
             else:
                 print("Valor no se encuentra")
-            
+                
+    def delete_tail(self):
+        prev = self.head_node
+        node = prev.next_node
+        
+        while node.next_node:
+            prev = node
+            node = node.next_node
+
+        
+        prev.next_node = None
