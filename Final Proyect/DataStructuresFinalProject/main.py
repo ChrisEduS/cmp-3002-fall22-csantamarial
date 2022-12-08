@@ -13,10 +13,10 @@ def by_author_files(files):
 def getfiles(dir):
     '''Get only files of a directory
     In this case, take all unit test stored results'''
-    basepath = 'TestResults/'+dir
+    basepath = 'TestResults/'+dir   # 'TestResults/Sum_R'
     files_list = []
     for entry in os.listdir(basepath):
-        if os.path.isfile(os.path.join(basepath, entry)):
+        if os.path.isfile(os.path.join(basepath, entry)):  
             files_list.append(entry)
     return files_list
 
@@ -283,20 +283,21 @@ def regOpts(files, basepath):
     ropt = int(input('Your choice: '))
     while True:
         if ropt == 1:
-            ## Show registers by date recent to oldest
+           ## Show registers by date recent to oldest
             rfiles = sorted(files)
-            rfiles.reverse()
-            for num, file in enumerate(sorted(rfiles)):
-                print('{} \t- {}'.format(num+1, file))
+            for num, file in enumerate(rfiles):
+                print('{} \t- {}'.format(len(rfiles)-num, file))
             print(line+'\n')
             print('El mejor registro de este Test fue:')
             best_file_ind = find_index(get_scores(goodfiles))
             print(goodfiles[best_file_ind[0]] + '\nCon un tiempo de ejecucion: '+str(best_file_ind[1]))
             break
         elif ropt == 2:
-            ## Show registers by date oldest to recent
-            for num, file in enumerate(sorted(files)):
-                print('{} \t- {}'.format(num+1, file))
+             ## Show registers by date oldest to recent
+            rfiles = sorted(files)
+            rfiles.reverse()
+            for num, file in enumerate(rfiles):
+                print('{} \t- {}'.format(len(rfiles)-num, file))
             print(line+'\n')
             print('El mejor registro de este Test fue:')
             best_file_ind = find_index(get_scores(goodfiles))
@@ -328,7 +329,7 @@ def dispRegistersW():
                 print("Not registers made yet")
                 continue
             orderOfReg()
-            regOpts(files, 'TestResults/SumRes/')
+            regOpts(files, 'TestResults/SumRes/') 
             break
 
         elif algopt == 2: # REVERSE LL
